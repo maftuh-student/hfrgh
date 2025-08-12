@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dapur Maffa - Toko Makanan Online</title>
+    <style>
+        /* CSS Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        
+        header {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            background-color: #ff8e8e;
+            padding: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 1rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #ff6b6b;
+        }
+        
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 1rem;
+        }
+        
+        .product-info h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-info p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: #ff6b6b;
+            font-size: 1.2rem;
+        }
+        
+        .add-to-cart {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #ff5252;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .cart-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            z-index: 100;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+        
+        /* Modal Keranjang */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cart-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .close-cart {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .cart-items {
+            margin-bottom: 1rem;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .item-info {
+            flex: 1;
+        }
+        
+        .item-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-btn {
+            background-color: #f0f0f0;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .item-quantity {
+            margin: 0 0.5rem;
+        }
+        
+        .remove-item {
+            color: #ff6b6b;
+            margin-left: 1rem;
+            cursor: pointer;
+        }
+        
+        .cart-total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-align: right;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 0.8rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .whatsapp-btn i {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .products {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+    <!-- Font Awesome untuk ikon WhatsApp -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>Delicious Food</h1>
+        <p>Toko Makanan Online Terbaik</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#home">Beranda</a></li>
+            <li><a href="#products">Produk</a></li>
+            <li><a href="#about">Tentang Kami</a></li>
+            <li><a href="#contact">Kontak</a></li>
+        </ul>
+    </nav>
+    
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h2>Makanan Enak, Hidup Bahagia</h2>
+            <p>Pesan makanan favoritmu dengan mudah dan cepat</p>
+        </div>
+    </section>
+    
+    <div class="container">
+        <section id="products">
+            <h2 class="section-title">Produk Kami</h2>
+            <div class="products">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187" alt="Nasi Goreng Spesial">
+                    </div>
+                    <div class="product-info">
+                        <h3>Nasi Goreng Spesial</h3>
+                        <p>Nasi goreng dengan campuran seafood dan bumbu rahasia</p>
+                        <div class="price">Rp 25.000</div>
+                        <button class="add-to-cart" onclick="addToCart('Nasi Goreng Spesial', 25000, 'https://images.unsplash.com/photo-1565958011703-44f9829ba187')">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1559847844-5315695dadae" alt="Mie Ayam Jamur">
+                    </div>
+                    <div class="product-info">
+                        <h3>Mie Ayam Jamur</h3>
+                        <p>Mie ayam dengan jamur tiram dan pangsit goreng</p>
+                        <div class="price">Rp 20.000</div>
+                        <button class="add-to-cart" onclick="addToCart('Mie Ayam Jamur', 20000, 'https://images.unsplash.com/photo-1559847844-5315695dadae')">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8" alt="Sate Ayam">
+                    </div>
+                    <div class="product-info">
+                        <h3>Sate Ayam</h3>
+                        <p>Sate ayam dengan bumbu kacang dan lontong</p>
+                        <div class="price">Rp 30.000</div>
+                        <button class="add-to-cart" onclick="addToCart('Sate Ayam', 30000, 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8')">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d" alt="Bakso Jumbo">
+                    </div>
+                    <div class="product-info">
+                        <h3>Bakso Jumbo</h3>
+                        <p>Bakso daging sapi ukuran jumbo dengan mie dan kuah kaldu</p>
+                        <div class="price">Rp 22.000</div>
+                        <button class="add-to-cart" onclick="addToCart('Bakso Jumbo', 22000, 'https://images.unsplash.com/photo-1563245372-f21724e3856d')">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1563245375-bb9c5c1187e3" alt="Gado-Gado">
+                    </div>
+                    <div class="product-info">
+                        <h3>Gado-Gado</h3>
+                        <p>Sayuran segar dengan bumbu kacang dan kerupuk</p>
+                        <div class="price">Rp 18.000</div>
+                        <button class="add-to-cart" onclick="addToCart('Gado-Gado', 18000, 'https://images.unsplash.com/photo-1563245375-bb9c5c1187e3')">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1563245375-f7324f551b8c" alt="Soto Ayam">
+                    </div>
+                    <div class="product-info">
+                        <h3>Soto Ayam</h3>
+                        <p>Soto ayam dengan suwiran daging dan koya</p>
+                        <div class="price">Rp 20.000</div>
+                        <button class="add-to-cart" onclick="addToCart('Soto Ayam', 20000, 'https://images.unsplash.com/photo-1563245375-f7324f551b8c')">Tambah ke Keranjang</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="about" style="margin-top: 4rem;">
+            <h2 class="section-title">Tentang Kami</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto; line-height: 1.6;">
+                Dapur Maffa adalah toko makanan online yang berkomitmen untuk menyajikan makanan enak dengan bahan-bahan berkualitas. 
+                Kami menggunakan resep tradisional dengan sentuhan modern untuk memberikan pengalaman makan yang tak terlupakan. 
+                Semua makanan kami dibuat dengan penuh cinta dan perhatian terhadap detail.
+            </p>
+        </section>
+    </div>
+    
+    <footer id="contact">
+        <h3>Hubungi Kami</h3>
+        <p>Email: maftuhmubarok19@gmail.com</p>
+        <p>Telepon: +628999271399</p>
+        <p>Alamat: Perumahan Permata Cikarang Timur blok J1/22</p>
+        <p style="margin-top: 1rem;">&copy; 2025 Dapur Maffa. All Rights Reserved.</p>
+    </footer>
+    
+    <div class="cart-icon" onclick="showCart()">
+        🛒
+        <div class="cart-count" id="cartCount">0</div>
+    </div>
+    
+    <!-- Modal Keranjang -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2>Keranjang Belanja</h2>
+                <span class="close-cart" onclick="hideCart()">&times;</span>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Item keranjang akan ditampilkan di sini -->
+            </div>
+            <div class="cart-total" id="cartTotal">
+                Total: Rp 0
+            </div>
+            <button class="whatsapp-btn" onclick="sendWhatsApp()">
+                <i class="fab fa-whatsapp"></i> Pesan via WhatsApp
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        // JavaScript untuk fungsi keranjang belanja
+        let cart = [];
+        
+        function addToCart(name, price, image) {
+            // Cek apakah produk sudah ada di keranjang
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name, price, quantity: 1, image });
+            }
+            
+            updateCart();
+            alert(`${name} telah ditambahkan ke keranjang!`);
+        }
+        
+        function updateCart() {
+            // Update jumlah item di ikon keranjang
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cartCount').textContent = totalItems;
+            
+            // Update daftar item di modal keranjang
+            const cartItemsElement = document.getElementById('cartItems');
+            const cartTotalElement = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                cartItemsElement.innerHTML = '<p>Keranjang belanja kosong</p>';
+                cartTotalElement.textContent = 'Total: Rp 0';
+                return;
+            }
+            
+            let itemsHTML = '';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                itemsHTML += `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 1rem;">
+                        <div class="item-info">
+                            <h4>${item.name}</h4>
+                            <p>Rp ${item.price.toLocaleString()} x ${item.quantity}</p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="quantity-btn" onclick="changeQuantity(${index}, -1)">-</button>
+                            <span class="item-quantity">${item.quantity}</span>
+                            <button class="quantity-btn" onclick="changeQuantity(${index}, 1)">+</button>
+                            <span class="remove-item" onclick="removeItem(${index})">Hapus</span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            cartItemsElement.innerHTML = itemsHTML;
+            cartTotalElement.textContent = `Total: Rp ${total.toLocaleString()}`;
+        }
+        
+        function changeQuantity(index, change) {
+            const newQuantity = cart[index].quantity + change;
+            
+            if (newQuantity < 1) {
+                removeItem(index);
+                return;
+            }
+            
+            cart[index].quantity = newQuantity;
+            updateCart();
+        }
+        
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+        
+        function showCart() {
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+        
+        function hideCart() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+        
+        function sendWhatsApp() {
+            if (cart.length === 0) {
+                alert('Keranjang belanja kosong!');
+                return;
+            }
+            
+            const phoneNumber = '628999271399'; // Ganti dengan nomor WhatsApp Anda
+            let message = 'Halo, saya ingin memesan:\n\n';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                message += `${item.name} x${item.quantity} = Rp ${itemTotal.toLocaleString()}\n`;
+                total += itemTotal;
+            });
+            
+            message += `\nTotal: Rp ${total.toLocaleString()}\n\n`;
+            message += 'Apakah pesanan ini tersedia? Terima kasih.';
+            
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+        
+        // Tutup modal jika klik di luar area konten
+        window.onclick = function(event) {
+            const modal = document.getElementById('cartModal');
+            if (event.target === modal) {
+                hideCart();
+            }
+        }
+    </script>
+</body>
+  </html>
