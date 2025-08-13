@@ -24,6 +24,23 @@
             padding: 1rem;
             text-align: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .logo {
+            height: 80px;
+            width: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+            border: 3px solid white;
         }
         
         nav {
@@ -146,6 +163,17 @@
             text-align: center;
             padding: 2rem;
             margin-top: 2rem;
+        }
+        
+        .contact-link {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact-link:hover {
+            color: #ff6b6b;
+            text-decoration: underline;
         }
         
         .cart-icon {
@@ -307,8 +335,13 @@
 </head>
 <body>
     <header>
-        <h1>Delicious Food</h1>
-        <p>Toko Makanan Online Terbaik</p>
+        <div class="logo-container">
+            <img src="logo.jpg" alt="Logo Dapur Maffa" class="logo">
+            <div>
+                <h1>Dapur Maffa</h1>
+                <p>Toko Makanan Online Terbaik</p>
+            </div>
+        </div>
     </header>
     
     <nav>
@@ -334,78 +367,78 @@
                 <!-- Product 1 -->
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187" alt="Nasi Goreng Spesial">
+                        <img src="nasi box.jpg" alt="Paket Bento">
                     </div>
                     <div class="product-info">
-                        <h3>Nasi Goreng Spesial</h3>
-                        <p>Nasi goreng dengan campuran seafood dan bumbu rahasia</p>
-                        <div class="price">Rp 25.000</div>
-                        <button class="add-to-cart" onclick="addToCart('Nasi Goreng Spesial', 25000, 'https://images.unsplash.com/photo-1565958011703-44f9829ba187')">Tambah ke Keranjang</button>
+                        <h3>Paket Bento</h3>
+                        <p>Paket bento berisi nasi, kering tempe, mie goreng, ayam serundeng, sambel dan lalapan</p>
+                        <div class="price">Rp 20.000</div>
+                        <button class="add-to-cart" onclick="addToCart('Paket Bento', 20000, 'nasi box.jpg')">Tambah ke Keranjang</button>
                     </div>
                 </div>
                 
                 <!-- Product 2 -->
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1559847844-5315695dadae" alt="Mie Ayam Jamur">
+                        <img src="nasi.jpg" alt="Paket Nasi Box">
                     </div>
                     <div class="product-info">
-                        <h3>Mie Ayam Jamur</h3>
-                        <p>Mie ayam dengan jamur tiram dan pangsit goreng</p>
-                        <div class="price">Rp 20.000</div>
-                        <button class="add-to-cart" onclick="addToCart('Mie Ayam Jamur', 20000, 'https://images.unsplash.com/photo-1559847844-5315695dadae')">Tambah ke Keranjang</button>
+                        <h3>Paket Nasi Box</h3>
+                        <p>Paket nasi box berisi nasi, ayam bakar, kerupuk, air mineral dan sambel</p>
+                        <div class="price">Rp 22.000</div>
+                        <button class="add-to-cart" onclick="addToCart('Paket Nasi Box', 22000, 'nasi.jpg')">Tambah ke Keranjang</button>
                     </div>
                 </div>
                 
                 <!-- Product 3 -->
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8" alt="Sate Ayam">
+                        <img src="yam.jpg" alt="Ayam Goreng Serundeng">
                     </div>
                     <div class="product-info">
-                        <h3>Sate Ayam</h3>
-                        <p>Sate ayam dengan bumbu kacang dan lontong</p>
-                        <div class="price">Rp 30.000</div>
-                        <button class="add-to-cart" onclick="addToCart('Sate Ayam', 30000, 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8')">Tambah ke Keranjang</button>
+                        <h3>Ayam Goreng Serundeng</h3>
+                        <p>Ayam goreng serundeng berisi ayam goreng serundeng 1 ekor, sambel dan lalapan </p>
+                        <div class="price">Rp 67.000</div>
+                        <button class="add-to-cart" onclick="addToCart('Ayam Goreng Serundeng', 67000, 'yam.jpg')">Tambah ke Keranjang</button>
                     </div>
                 </div>
                 
                 <!-- Product 4 -->
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d" alt="Bakso Jumbo">
+                        <img src="nasi tumpeng.jpg" alt="Tumpeng">
                     </div>
                     <div class="product-info">
-                        <h3>Bakso Jumbo</h3>
-                        <p>Bakso daging sapi ukuran jumbo dengan mie dan kuah kaldu</p>
-                        <div class="price">Rp 22.000</div>
-                        <button class="add-to-cart" onclick="addToCart('Bakso Jumbo', 22000, 'https://images.unsplash.com/photo-1563245372-f21724e3856d')">Tambah ke Keranjang</button>
+                        <h3>Tumpeng</h3>
+                        <p>Tumpeng berisi kering tempe, mie goreng, ayam serundeng, perkedel, telor puyuh dan sambel yang akan dihias semenarik mungkin</p>
+                        <div class="price">Rp 200.000</div>
+                        <button class="add-to-cart" onclick="addToCart('Tumpeng', 200000, 'nasi tumpeng.jpg')">Tambah ke Keranjang</button>
                     </div>
                 </div>
                 
                 <!-- Product 5 -->
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1563245375-bb9c5c1187e3" alt="Gado-Gado">
+                        <img src="tumpeng mini.jpg" alt="Tumpeng Mini">
                     </div>
                     <div class="product-info">
-                        <h3>Gado-Gado</h3>
-                        <p>Sayuran segar dengan bumbu kacang dan kerupuk</p>
-                        <div class="price">Rp 18.000</div>
-                        <button class="add-to-cart" onclick="addToCart('Gado-Gado', 18000, 'https://images.unsplash.com/photo-1563245375-bb9c5c1187e3')">Tambah ke Keranjang</button>
+                        <h3>Tumpeng Mini</h3>
+                        <p>Tumpeng mini berisi ayam serundeng, kering tempe, mie goreng, telor iris, sambel dan lalapan</p>
+                        <div class="price">Rp 24.000</div>
+                        <button class="add-to-cart" onclick="addToCart('Tumpeng Mini', 24000, 'tumpeng mini.jpg')">Tambah ke Keranjang</button>
                     </div>
                 </div>
                 
                 <!-- Product 6 -->
                 <div class="product-card">
                     <div class="product-image">
-                        <img src="https://images.unsplash.com/photo-1563245375-f7324f551b8c" alt="Soto Ayam">
+                        <img src="nasi tampah.jpg" alt="Nasi Liwet Tampah">
                     </div>
                     <div class="product-info">
-                        <h3>Soto Ayam</h3>
-                        <p>Soto ayam dengan suwiran daging dan koya</p>
-                        <div class="price">Rp 20.000</div>
-                        <button class="add-to-cart" onclick="addToCart('Soto Ayam', 20000, 'https://images.unsplash.com/photo-1563245375-f7324f551b8c')">Tambah ke Keranjang</button>
+                        <h3>Nasi Liwet Tampah</h3>
+                        <p>Nasi liwet tampah berisi ayam serundeng, cue tongkol, urab, usus, kering tempe, sambel atau bisa request sesuai selera </p>
+                        <div class="price">Rp 200.000</div>
+                        <button class="add-to-cart" onclick="addToCart('Nasi Tampah', 200000, 'nasi tampah.jpg')">Tambah ke Keranjang</button>
                     </div>
                 </div>
             </div>
@@ -423,9 +456,9 @@
     
     <footer id="contact">
         <h3>Hubungi Kami</h3>
-        <p>Email: maftuhmubarok19@gmail.com</p>
-        <p>Telepon: +628999271399</p>
-        <p>Alamat: Perumahan Permata Cikarang Timur blok J1/22</p>
+        <p>Email: <a href="mailto:maftuhmubarok19@gmail.com" class="contact-link">maftuhmubarok19@gmail.com</a></p>
+        <p>Telepon: <a href="https://wa.me/628999271399" class="contact-link">+628999271399</a></p>
+        <p>Alamat: <a href="https://www.google.com/maps?q=-6.295350,107.188187" target="_blank" class="contact-link">Perumahan Permata Cikarang Timur blok J1/22</a></p>
         <p style="margin-top: 1rem;">&copy; 2025 Dapur Maffa. All Rights Reserved.</p>
     </footer>
     
@@ -573,4 +606,4 @@
         }
     </script>
 </body>
-  </html>
+</html>
